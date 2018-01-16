@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+body {
+  min-width: initial !important;
+}
+.clearfix {
+  clear: both;
+}
+.protograph-card {
+  position: relative;
+  overflow: hidden;
+  letter-spacing: normal;
+  box-sizing: border-box;
+}
+
+.protograph-col16-mode{
+  height: 430px;
+  width: 1260px;
+}
+
+.protograph-col16-navbar-area{
+  height: 70px;
+  background: red;
+}
+
+.protograph-col16-map-area {
+  background: grey;
+  height: 360px;
+}
+
+.protograph-bad-heat-color{
+  fill: red;
+}
+
+.protograph-map-div{
+  width: 420px;
+  display: inline-block;
+}
+
+.protograph-col3-mode {
+  height: 70px;
+  width: 220px;
+  border-top: 1px solid rgba(51,51,51,0.75);
+	background: #fafafa;
+  padding: 10px;
+	box-sizing: border-box;
+	position: relative;
+}
+.protograph-col4-mode {
+  height: 70px;
+  width: 300px;
+}
+.protograph-col7-mode {
+  height: 70px;
+  width: 540px;
+}
+.protograph-tocluster-card-with-analysis {
+  height: 250px;
+  padding: 10px 20px;
+}
+.protograph-tocluster-card {
+  border-top: 1px solid grey;
+  background-color: #fafafa;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.protograph-tocluster-title-container {
+  display: block;
+  height: 38px;
+  overflow: hidden;
+}
+.title-with-analysis {
+  max-height: 28px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.75;
+  /* margin-bottom: 12px; */
+}
+.protograph-tocluster-title {
+  font-size: 14px;
+	color: #333;
+	line-height: 19px;
+	font-family: bitter;
+  display: block;
+  text-decoration: none;
+	/* display: inline-block; */
+	/* margin-top: 12px; */
+	/* margin-bottom: 12px; */
+}
+.protograph-tocluster-title-with-analysis {
+  font-size: 16px;
+}
+.protograph-tocluster-title:hover {
+  color: #333333;
+}
+.protograph-tocluster-other-info {
+  float: left;
+  margin-top: -3px;
+}
+.info-with-analysis {
+  margin-bottom: 5px;
+}
+.protograph-tocluster-byline, .protograph-tocluster-timeago {
+  font-size: 9px;
+  color: #8e8e8e;
+}
+.protograph-tocluster-favicons {
+  float: right;
+}
+.protograph-tocluster-favicon-link {
+  height: 13px;
+  width: 13px;
+  display: inline-block;
+  margin-right: 8px;
+}
+.protograph-tocluster-favicon-link:last-child {
+  margin-right: 0px
+}
+.protograph-tocluster-favicon {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+.protograph-tocluster-favicon:hover {
+  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+.protograph-tocluster-greyscale {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+.protograph-tocluster-analysis-container p {
+    /* max-height: 130px; */
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    color: #757575;
+    padding-bottom: 5px;
+}
+.protograph-tocluster-analysis-container a {
+  color: inherit;
+  border-bottom: 1px solid #757575;
+}
+.protograph-tocluster-analysis-container a.active, .protograph-tocluster-analysis-container a:hover {
+  color: initial;
+}
+.protograph-tocluster-footer {
+  width: 100%;
+  border-top: 1px solid #efefef;
+  position: absolute;
+  bottom: 0px;
+}
+.favicons-with-analysis {
+  line-height: 2.33;
+  letter-spacing: normal;
+}
+.protograph-tocluster-publication {
+  float: left;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.33;
+  letter-spacing: normal;
+  color: #999999;
+}
+
+
+
+/* New CSS For Cluster Card */
+/* .col-3-feed-card{
+	height: 70px;
+	margin-bottom: 20px;
+	background: #fafafa;
+	padding: 10px;
+	box-sizing: border-box;
+	position: relative;
+} */
+/* .protograph-col3-mode .protograph-tocluster-title-container {
+  height: 36px;
+}
+.protograph-col3-mode .protograph-tocluster-title{
+	font-size: 14px;
+	color: #333;
+	font-family: bitter;
+	line-height: 19px;
+	display: inline-block;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	max-width: 176px;
+	max-height: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
+.protograph-col3-mode .protograph-tocluster-byline,
+.protograph-col3-mode .protograph-tocluster-timeago {
+	font-size: 9px;
+	color: rgba(51, 51, 51, 0.6);
+	font-family: cabin;
+	font-weight: 100;
+	letter-spacing: 0px;
+}
+
+.protograph-col3-mode .protograph-tocluster-favicons{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+.protograph-col3-mode .protograph-tocluster-favicons .protograph-tocluster-favicon-link,
+.protograph-col3-mode .protograph-tocluster-favicons .protograph-tocluster-favicon {
+	height: 12px;
+	width: 12px;
+	float: left;
+	border-radius: 50px;
+	margin-left: 3px;
+}

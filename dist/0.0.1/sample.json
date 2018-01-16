@@ -1,0 +1,225 @@
+{
+  "data": {
+    "employed_map_title": "No. of Employed",
+    "deaths_map_title": "No. of Deaths",
+    "convicted_map_title": "No. of Convicted",
+    "data_points": [
+      {
+        "state": "Andaman and Nicobar Island",
+        "employed_value": 25,
+        "deaths_value": 13,
+        "convicted_value": 7 
+      },
+      {
+        "state": "Andhra Pradesh",
+        "employed_value": 45,
+        "deaths_value": 3,
+        "convicted_value": 40  
+      },
+      {
+        "state": "Arunachal Pradesh",
+        "employed_value": 100,
+        "deaths_value": 34,
+        "convicted_value": 98 
+      },
+      {
+        "state": "Assam",
+        "employed_value": 80,
+        "deaths_value": 50,
+        "convicted_value": 30 
+      },
+      {
+        "state": "Bihar",
+        "employed_value": 43,
+        "deaths_value": 30,
+        "convicted_value": 13 
+      },
+      {
+        "state": "Chandigarh",
+        "employed_value": 40,
+        "deaths_value": 10,
+        "convicted_value": 30 
+      },
+      {
+        "state": "Chhattisgarh",
+        "employed_value": 50,
+        "deaths_value": 20,
+        "convicted_value": 30 
+      },
+      {
+        "state": "Dadra and Nagar Haveli",
+        "employed_value": 54,
+        "deaths_value": 14,
+        "convicted_value": 40 
+      },
+      {
+        "state": "Daman and Diu",
+        "employed_value": 60,
+        "deaths_value": 34,
+        "convicted_value": 54 
+      },
+      {
+        "state": "New Delhi",
+        "employed_value": 45 ,
+        "deaths_value": 35,
+        "convicted_value": 10 
+      },
+      {
+        "state": "Goa",
+        "employed_value": 50,
+        "deaths_value": 45,
+        "convicted_value": 5 
+      },
+      {
+        "state": "Gujarat",
+        "employed_value": 60,
+        "deaths_value": 34,
+        "convicted_value": 32 
+      },
+      {
+        "state": "Haryana",
+        "employed_value": 56 ,
+        "deaths_value": 32,
+        "convicted_value": 12 
+      },
+      {
+        "state": "Himachal Pradesh",
+        "employed_value": 90,
+        "deaths_value": 70,
+        "convicted_value": 20 
+      },
+      {
+        "state": "Jammu and Kashmir",
+        "employed_value": 43 ,
+        "deaths_value": 34,
+        "convicted_value": 7 
+      },
+      {
+        "state": "Jharkhand",
+        "employed_value": 32,
+        "deaths_value": 30,
+        "convicted_value": 2 
+      },
+      {
+        "state": "Karnataka",
+        "employed_value": 32,
+        "deaths_value": 12,
+        "convicted_value": 43
+      },
+      {
+        "state": "Kerala",
+        "employed_value": 50,
+        "deaths_value": 20,
+        "convicted_value": 30 
+      },
+      {
+        "state": "Lakshadweep",
+        "employed_value": 45,
+        "deaths_value": 35,
+        "convicted_value": 10
+      },
+      {
+        "state": "Madhya Pradesh",
+        "employed_value": 45,
+        "deaths_value": 43,
+        "convicted_value": 32 
+      },
+      {
+        "state": "Maharashtra",
+        "employed_value": 120,
+        "deaths_value": 54,
+        "convicted_value":20 
+      },
+      {
+        "state": "Manipur",
+        "employed_value": 43,
+        "deaths_value": 12,
+        "convicted_value": 3
+      },
+      {
+        "state": "Meghalaya",
+        "employed_value": 56,
+        "deaths_value": 31,
+        "convicted_value": 16
+      },
+      {
+        "state": "Mizoram",
+        "employed_value": 110,
+        "deaths_value": 34,
+        "convicted_value": 3
+      },
+      {
+        "state": "Nagaland",
+        "employed_value": 50,
+        "deaths_value": 40,
+        "convicted_value": 3
+      },
+      {
+        "state": "Odisha",
+        "employed_value": 60,
+        "deaths_value": 23,
+        "convicted_value": 14
+      },{
+        "state": "Puducherry",
+        "employed_value": 20,
+        "deaths_value": 3,
+        "convicted_value": 12
+      },
+      {
+        "state": "Punjab",
+        "employed_value": 300,
+        "deaths_value": 43,
+        "convicted_value": 23
+      },
+      {
+        "state": "Rajasthan",
+        "employed_value": 200 ,
+        "deaths_value": 120,
+        "convicted_value": 30
+      },
+      {
+        "state": "Sikkim",
+        "employed_value": 200,
+        "deaths_value": 54 ,
+        "convicted_value": 45
+      },
+      {
+        "state": "Tamil Nadu",
+        "employed_value": 167,
+        "deaths_value": 60,
+        "convicted_value": 7 
+      },
+      {
+        "state": "Telangana",
+        "employed_value": 55,
+        "deaths_value": 5,
+        "convicted_value": 50
+      },
+      {
+        "state": "Tripura",
+        "employed_value": 62 ,
+        "deaths_value": 2,
+        "convicted_value": 60
+      },
+      {
+        "state": "Uttar Pradesh",
+        "employed_value": 90,
+        "deaths_value": 20,
+        "convicted_value": 70
+      },
+      {
+        "state": "Uttarakhand",
+        "employed_value": 35,
+        "deaths_value": 65,
+        "convicted_value": 54
+      },
+      {
+        "state": "West Bengal",
+        "employed_value": 120,
+        "deaths_value": 50,
+        "convicted_value": 70
+      }
+    ],
+    "hint_text": "Help text will come here."
+  }
+}

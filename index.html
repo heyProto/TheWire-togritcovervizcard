@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>toManualScavengerCoverVizCard</title>
+    <link rel="stylesheet" type="text/css" href="https://dwln9tzsi7g07.cloudfront.net/Assets/semantic.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Sarala" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./src/css/styles.css">
+  </head>
+  <body>
+    <style>
+      .test-card {
+        margin: 10px 20px;
+      }
+    </style>
+    <div id="card" class="test-card"></div>
+    <script src = "./dist/0.0.1/card.min.js"></script>
+    <script type="text/javascript">
+    var x = new ProtoGraph.Card.toManualScavengerCoverVizCard();
+    x.init({
+      selector: document.querySelector('#card'),
+      topo_url: "dist/0.0.1/topo.json",
+      data_url: "dist/0.0.1/sample.json",
+      schema_url: 'dist/0.0.1/schema.json',
+      configuration_url: "./dist/0.0.1/configuration_sample.json",
+      configuration_schema_url: './dist/0.0.1/configuration_schema.json'
+    });
+
+    // x.renderCol3();
+    // x.renderCol4();
+    x.renderCol16();
+
+
+    </script>
+  </body>
+</html>
