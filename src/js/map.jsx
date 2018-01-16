@@ -74,23 +74,18 @@ class MapsCard extends React.Component {
       )
     })
 
-    // console.log("KEYS", Object.keys(this.state.employedScore))
-    // console.log("kkkkk", country.features.map((d) => {return d.properties.NAME_1}))
     let outlines = country.features.map((d,i) => {
 
-      // console.log(this.state.employedScore, d.properties.NAME_1, this.state.employedScore[d.properties.NAME_1], "1")
-      // console.log(colorScale(this.state.employedScore[d.properties.NAME_1]), "2")
-
-      // console.log(d, "dddd", this.state.employedScore[d.properties.NAME_1])
-      let heat_color = 'protograph-bad-heat-color',
-        fill = colorScale(this.props.dataJSON[d.properties.NAME_1])
+      console.log(this.props.dataJSON[d.properties.NAME_1], "1")
+      let heat_color = this.props.dataJSON[d.properties.NAME_1] === 0 ? 'protograph-no-value-color' : 'protograph-heat-color',
+        opacity = this.props.dataJSON[d.properties.NAME_1] === 0 ? 1 : colorScale(this.props.dataJSON[d.properties.NAME_1])
       // console.log(fill, "fill")
       return(
         <path
           key={i}
           className={`geo region-outline ${heat_color}`}
           d={path(d)}
-          style={{opacity: fill}}
+          style={{opacity: opacity}}
           data-state_code={d.properties.NAME_1}
         />
       )

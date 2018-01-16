@@ -12,9 +12,9 @@
       },
       {
         "state": "Andhra Pradesh",
-        "employed_value": 45,
+        "employed_value": 78,
         "deaths_value": 3,
-        "convicted_value": 40  
+        "convicted_value": 0  
       },
       {
         "state": "Arunachal Pradesh",
@@ -24,21 +24,21 @@
       },
       {
         "state": "Assam",
-        "employed_value": 80,
-        "deaths_value": 50,
-        "convicted_value": 30 
+        "employed_value": 154,
+        "deaths_value": 0,
+        "convicted_value": 0 
       },
       {
         "state": "Bihar",
-        "employed_value": 43,
-        "deaths_value": 30,
-        "convicted_value": 13 
+        "employed_value": 137,
+        "deaths_value": 3,
+        "convicted_value": 0 
       },
       {
         "state": "Chandigarh",
-        "employed_value": 40,
-        "deaths_value": 10,
-        "convicted_value": 30 
+        "employed_value": 3,
+        "deaths_value": 0,
+        "convicted_value": 0 
       },
       {
         "state": "Chhattisgarh",
@@ -60,9 +60,9 @@
       },
       {
         "state": "New Delhi",
-        "employed_value": 45 ,
-        "deaths_value": 35,
-        "convicted_value": 10 
+        "employed_value": 0,
+        "deaths_value": 19,
+        "convicted_value": 0 
       },
       {
         "state": "Goa",
@@ -78,9 +78,9 @@
       },
       {
         "state": "Haryana",
-        "employed_value": 56 ,
-        "deaths_value": 32,
-        "convicted_value": 12 
+        "employed_value": 0,
+        "deaths_value": 5,
+        "convicted_value": 0 
       },
       {
         "state": "Himachal Pradesh",
@@ -102,15 +102,15 @@
       },
       {
         "state": "Karnataka",
-        "employed_value": 32,
-        "deaths_value": 12,
-        "convicted_value": 43
+        "employed_value": 726,
+        "deaths_value": 57,
+        "convicted_value": 1
       },
       {
         "state": "Kerala",
-        "employed_value": 50,
-        "deaths_value": 20,
-        "convicted_value": 30 
+        "employed_value": 0,
+        "deaths_value": 12,
+        "convicted_value": 0 
       },
       {
         "state": "Lakshadweep",
@@ -120,15 +120,15 @@
       },
       {
         "state": "Madhya Pradesh",
-        "employed_value": 45,
-        "deaths_value": 43,
-        "convicted_value": 32 
+        "employed_value": 36,
+        "deaths_value": 1,
+        "convicted_value": 0 
       },
       {
         "state": "Maharashtra",
-        "employed_value": 120,
-        "deaths_value": 54,
-        "convicted_value":20 
+        "employed_value": 0,
+        "deaths_value": 16,
+        "convicted_value": 0 
       },
       {
         "state": "Manipur",
@@ -156,9 +156,9 @@
       },
       {
         "state": "Odisha",
-        "employed_value": 60,
-        "deaths_value": 23,
-        "convicted_value": 14
+        "employed_value": 237,
+        "deaths_value": 3,
+        "convicted_value": 0
       },{
         "state": "Puducherry",
         "employed_value": 20,
@@ -167,15 +167,15 @@
       },
       {
         "state": "Punjab",
-        "employed_value": 300,
-        "deaths_value": 43,
-        "convicted_value": 23
+        "employed_value": 91,
+        "deaths_value": 32,
+        "convicted_value": 0
       },
       {
         "state": "Rajasthan",
-        "employed_value": 200 ,
-        "deaths_value": 120,
-        "convicted_value": 30
+        "employed_value": 338,
+        "deaths_value": 6,
+        "convicted_value": 0
       },
       {
         "state": "Sikkim",
@@ -185,9 +185,9 @@
       },
       {
         "state": "Tamil Nadu",
-        "employed_value": 167,
-        "deaths_value": 60,
-        "convicted_value": 7 
+        "employed_value": 363,
+        "deaths_value": 144,
+        "convicted_value": 0 
       },
       {
         "state": "Telangana",
@@ -203,21 +203,21 @@
       },
       {
         "state": "Uttar Pradesh",
-        "employed_value": 90,
-        "deaths_value": 20,
-        "convicted_value": 70
+        "employed_value": 0,
+        "deaths_value": 37,
+        "convicted_value": 0
       },
       {
         "state": "Uttarakhand",
-        "employed_value": 35,
-        "deaths_value": 65,
-        "convicted_value": 54
+        "employed_value": 137,
+        "deaths_value": 9,
+        "convicted_value": 0
       },
       {
         "state": "West Bengal",
-        "employed_value": 120,
-        "deaths_value": 50,
-        "convicted_value": 70
+        "employed_value": 104,
+        "deaths_value": 19,
+        "convicted_value": 0
       }
     ],
     "hint_text": "Help text will come here."
