@@ -1,19 +1,23 @@
 import React from 'react';
 import * as topojson from 'topojson-client';
 import {geoPath, geoCentroid, geoMercator} from 'd3-geo';
-import {scaleLinear} from 'd3-scale'
+import {scaleLinear} from 'd3-scale';
+import {min, max} from 'd3-array';
 // import Voronoi from '../js/Voronoi';
 
 class MapsCard extends React.Component {
   constructor(props) {
     super(props);
 
-    let employed_score = {}
+    // let employed_score = {},
+    //   score = []
 
-    this.props.dataJSON.data_points.forEach((e,i) => {
-      // console.log(e, "eeeee")
-      employed_score[e.state] = e.employed_value;
-    });
+    // this.props.dataJSON.data_points.forEach((e,i) => {
+    //   // console.log(e, "eeeee")
+    //   employed_score[e.state] = e.employed_value;
+    //   score.push(e.employed_value)
+
+    // });
 
     this.state = {
       projection: undefined,
@@ -26,20 +30,21 @@ class MapsCard extends React.Component {
       x:'100px',
       y:'100px',
       showTooltip:false,
-      employedScore: employed_score
+      // employedScore: employed_score,
+      // score: score
     }
   }
 
   componentWillMount() {
     let padding = this.props.mode === 'mobile' ? 20 : 0,
-      offsetWidth = this.props.mode === 'mobile' ? 300 : 550 - padding ,
+      offsetWidth = this.props.mode === 'mobile' ? 300 : 420 ,
       actualHeight = this.props.mode === 'mobile' ? 500 : 300
 
     let tx = this.props.mode === 'mobile' ? offsetWidth / 2 : offsetWidth / 2;
     let ch = this.props.topoJSON,
       country = topojson.feature(ch, ch.objects),
       center = geoCentroid(topojson.feature(ch, ch.objects)),
-      scale = 700,
+      scale = 500,
       projection = geoMercator().center(center)
         .scale(scale)
         .translate([tx, actualHeight/2]),
@@ -58,8 +63,8 @@ class MapsCard extends React.Component {
     path = path.projection(projection);
 
     let colorScale = scaleLinear()
-      .domain([5, 200])
-      .range([0.1, 1])
+      .domain([min(this.props.scoreArr), max(this.props.scoreArr)])
+      .range([0.1, 0.9])
 
     let regions = country.features.map((d,i) => {
       return(
@@ -69,22 +74,23 @@ class MapsCard extends React.Component {
       )
     })
 
-    console.log("KEYS", Object.keys(this.state.employedScore))
-    console.log("kkkkk", country.features.map((d) => {return d.properties.NAME_1}))
+    // console.log("KEYS", Object.keys(this.state.employedScore))
+    // console.log("kkkkk", country.features.map((d) => {return d.properties.NAME_1}))
     let outlines = country.features.map((d,i) => {
 
-      console.log(this.state.employedScore, d.properties.NAME_1, this.state.employedScore[d.properties.NAME_1], "1")
-      console.log(colorScale(this.state.employedScore[d.properties.NAME_1]), "2")
+      // console.log(this.state.employedScore, d.properties.NAME_1, this.state.employedScore[d.properties.NAME_1], "1")
+      // console.log(colorScale(this.state.employedScore[d.properties.NAME_1]), "2")
 
       // console.log(d, "dddd", this.state.employedScore[d.properties.NAME_1])
       let heat_color = 'protograph-bad-heat-color',
-        fill = colorScale(this.state.employedScore[d.properties.NAME_1])
-      console.log(fill, "fill")
+        fill = colorScale(this.props.dataJSON[d.properties.NAME_1])
+      // console.log(fill, "fill")
       return(
         <path
           key={i}
           className={`geo region-outline ${heat_color}`}
           d={path(d)}
+          style={{opacity: fill}}
           data-state_code={d.properties.NAME_1}
         />
       )
