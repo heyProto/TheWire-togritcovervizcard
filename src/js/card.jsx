@@ -22,8 +22,6 @@ export default class toManualScavengerCoverVizCard extends React.Component {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
       stateVar.topoJSON = this.props.topoJSON;
-      stateVar.employedScore = employed_score;
-      stateVar.languageTexts = this.getLanguageTexts(this.props.dataJSON.data.language);
     }
 
     if (this.props.optionalConfigJSON) {
@@ -62,13 +60,13 @@ export default class toManualScavengerCoverVizCard extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.dataJSON) {
-      this.setState({
-        dataJSON: nextProps.dataJSON
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.dataJSON) {
+  //     this.setState({
+  //       dataJSON: nextProps.dataJSON
+  //     });
+  //   }
+  // }
 
   getLanguageTexts(languageConfig) {
     let language = languageConfig ? languageConfig : "hindi",
@@ -86,7 +84,6 @@ export default class toManualScavengerCoverVizCard extends React.Component {
         }
         break;
     }
-
     return text_obj;
   }
 
@@ -94,7 +91,6 @@ export default class toManualScavengerCoverVizCard extends React.Component {
     if (this.state.fetchingData ){
       return(<div>Loading</div>)
     } else {
-      // console.log(data, "data")
       let data = this.state.dataJSON.data,
         employed_data = {},
         deaths_data = {},
@@ -122,7 +118,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
           </div>
           <div className="protograph-col16-map-area">
             <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.employed_map_title} - {employed_count}</div>
+              <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
               <Map
                   dataJSON={employed_data}
                   scoreArr={employed_score}
@@ -131,7 +127,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                 />
             </div>
             <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.deaths_map_title} - {deaths_count}</div>
+              <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
               <Map
                   dataJSON={deaths_data}
                   scoreArr={deaths_score}
@@ -140,7 +136,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                 />
             </div>
             <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.convicted_map_title} - {convicted_count}</div>
+              <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
               <Map
                   dataJSON={convicted_data}
                   scoreArr={convicted_score}
@@ -161,66 +157,9 @@ export default class toManualScavengerCoverVizCard extends React.Component {
     } else {
       const data = this.state.dataJSON.data;
       return (
-        <div
-          id="protograph_div"
-          className="protograph-col3-mode"
-          style={{ fontFamily: this.state.languageTexts.font }}>
-            <div className="protograph-tocluster-title-container">
-              <a href={link.link} target="_blank" className="protograph-tocluster-title">{data.title}</a>
-            </div>
-            <div className="protograph-tocluster-other-info">
-              <span className="protograph-tocluster-byline">By {data.by_line}</span>&nbsp;
-              <TimeAgo component="span" className="protograph-tocluster-timeago" date={data.published_date} />
-            </div>
-            <div className="protograph-tocluster-favicons">
-              {
-                data.links.map((e, i) => {
-                  let greyscale = "";
-                  if (i > 0) {
-                    greyscale = "protograph-tocluster-greyscale"
-                  }
-                  return (
-                    <a key={i} href={e.link} target="_blank" className="protograph-tocluster-favicon-link">
-                      <img className={`protograph-tocluster-favicon ${greyscale}`} src={e.favicon_url} />
-                    </a>
-                  )
-                })
-              }
-            </div>
-        </div>
+        <div>Mobile mode coming before EOD.</div>
       )
     }
-  }
-
-  renderCard() {
-    const data = this.state.dataJSON.data;
-    return (
-      <div className="protograph-card">
-        <div className="protograph-tocluster-title-container">
-          <a href={link.link} target="_blank" className="protograph-tocluster-title">{data.title}</a>
-        </div>
-
-        <div className="protograph-tocluster-other-info">
-          <span className="protograph-tocluster-byline">By {data.by_line}</span>&nbsp;
-              <TimeAgo component="span" className="protograph-tocluster-timeago" date={data.published_date} />
-        </div>
-        <div className="protograph-tocluster-favicons">
-          {
-            data.links.map((e, i) => {
-              let greyscale = "";
-              if (i > 0) {
-                greyscale = "protograph-tocluster-greyscale"
-              }
-              return (
-                <a key={i} href={e.link} target="_blank" className="protograph-tocluster-favicon-link">
-                  <img className={`protograph-tocluster-favicon ${greyscale}`} src={e.favicon_url} />
-                </a>
-              )
-            })
-          }
-        </div>
-      </div>
-    )
   }
 
   render() {

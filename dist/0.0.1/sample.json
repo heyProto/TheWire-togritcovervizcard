@@ -1,8 +1,10 @@
 {
   "data": {
-    "employed_map_title": "No. of Employed",
-    "deaths_map_title": "No. of Deaths",
-    "convicted_map_title": "No. of Convicted",
+    "map_title": {
+      "employed_map_title": "No. of Employed",
+      "deaths_map_title": "No. of Deaths",
+      "convicted_map_title": "No. of Convicted"
+    },
     "data_points": [
       {
         "state": "Andaman and Nicobar Island",

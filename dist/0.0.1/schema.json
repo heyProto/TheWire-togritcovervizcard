@@ -6,57 +6,72 @@
     "data": {
       "id": "/properties/data",
       "properties": {
-        "employed_map_title": {
-          "id": "/properties/data/properties/title",
-          "title": "Employed Map Title",
-          "type": "string"
-        },
-        "deaths_map_title": {
-          "id": "/properties/data/properties/by_line",
-          "title": "Deaths Map Title",
-          "type": "string"
-        },
-        "convicted_map_title": {
-          "id": "/properties/data/properties/published_date",
-          "title": "Convicted Map Title",
-          "type": "string"
+        "map_title": {
+          "id": "/properties/data/properties/map_title",
+          "type": "object",
+          "properties": {
+            "employed_map_title": {
+              "id": "/properties/data/properties/map_title/properties/employed_map_title",
+              "type": "string",
+              "title": "Employed Map Title"
+            },
+            "deaths_map_title": {
+              "id": "/properties/data/properties/map_title/properties/deaths_map_title",
+              "type": "string",
+              "title": "Deaths Map Ttitle"
+            },
+            "convicted_map_title": {
+              "id": "/properties/data/properties/map_title/properties/convicted_map_title",
+              "type": "string",
+              "title": "Convicted Map Title"
+            }
+          }
         },
         "data_points": {
-          "$id": "/properties/data/properties/data_points",
-          "type": "array",
+          "id": "/properties/data/properties/data_points",
           "items": {
-            "$id": "/properties/data/properties/data_points/items",
-            "type": "object",
+            "id": "/properties/data/properties/data_points/items",
+            "hideTitle": true,
+            "separator": "#",
             "properties": {
               "state": {
-                "$id": "/properties/data/properties/data_points/items/properties/state",
+                "id": "/properties/data/properties/data_points/items/properties/state",
                 "type": "string",
                 "title": "State",
                 "enum": [
                 "Andaman and Nicobar Island", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli", "Daman and Diu", "New Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"]
               },
               "employed_value": {
-                "$id": "/properties/data/properties/data_points/items/properties/employed_value",
+                "id": "/properties/data/properties/data_points/items/properties/employed_value",
                 "type": "integer",
                 "title": "No. of Employed"
               },
               "deaths_value": {
-                "$id": "/properties/data/properties/data_points/items/properties/deaths_value",
+                "id": "/properties/data/properties/data_points/items/properties/deaths_value",
                 "type": "integer",
                 "title": "No. of Deaths"
               },
               "convicted_value": {
-                "$id": "/properties/data/properties/data_points/items/properties/convicted_value",
+                "id": "/properties/data/properties/data_points/items/properties/convicted_value",
                 "type": "integer",
                 "title": "No. of Convicted"
               }
-            }
-          }
+            },
+            "required": [
+              "state", "employed_value", "deaths_value", "convicted_value"
+            ],
+            "minItems": 36,
+            "maxItems": 36,
+            "type": "object"
+          },
+          "minItems": 36,
+          "maxItems": 36,
+          "type": "array"
         },
         "hint_text": {
-          "$id": "/properties/data/properties/hint_text",
+          "id": "/properties/data/properties/hint_text",
           "type": "string",
-          "title": "Hint Text",
+          "title": "Hint Text"
         }
       },
       "title": "Card Data",

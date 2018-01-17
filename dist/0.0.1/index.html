@@ -3,7 +3,7 @@
   <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>toCluster</title>
+    <title>toManualScavengerCoverVizCard</title>
     <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="card.min.css">
     <script type="text/javascript">
@@ -46,11 +46,11 @@
 
   </head>
   <body style="margin:0px">
-    <div id="toCluster_card"></div>
+    <div id="viz_card"></div>
     <script src="https://dwln9tzsi7g07.cloudfront.net/lib/protograph-core.min.js"></script>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toCluster();
+    var x = new ProtoGraph.Card.toManualScavengerCoverVizCard();
     function findGetParameter(parameterName) {
       var result = null,
         tmp = [],
@@ -70,7 +70,7 @@
       schema_id = findGetParameter('schema_id');
 
     if (siteId && view_cast_id) {
-      _paq.push(['trackEvent', 'toCluster', 'page_view', view_cast_id]);
+      _paq.push(['trackEvent', 'toManualScavengerCoverVizCard', 'page_view', view_cast_id]);
     }
 
     var ReceiverConsumer = Oasis.Consumer.extend({
@@ -82,7 +82,7 @@
             schema_base_path = base_url + "/" + schema_id;
 
             x.init({
-              selector: document.querySelector('#toCluster_card'),
+              selector: document.querySelector('#viz_card'),
               data_url: data_base_path + "/data.json",
               schema_url: schema_base_path + "/schema.json",
               configuration_url: data_base_path + "/view_cast.json",
@@ -128,18 +128,14 @@
 
     function renderWithMode(mode) {
       switch(mode){
-        case "col7":
-          x.renderCol7();
+        case "col16":
+          x.renderCol16();
           break;
         case "col4":
           x.renderCol4();
           break;
-        case "col3":
-          x.renderCol3();
-          break;
       }
     }
-
     </script>
   </body>
 </html>

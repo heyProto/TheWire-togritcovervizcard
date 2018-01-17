@@ -15,6 +15,10 @@ body {
 .protograph-col16-mode{
   height: 430px;
   width: 1260px;
+  z-index: 1;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .protograph-col16-navbar-area{
@@ -56,4 +60,26 @@ body {
 .protograph-col7-mode {
   height: 70px;
   width: 540px;
+}
+.region-outline{
+  cursor: pointer;
+  z-index: -1;
+}
+.region-outline:hover {
+  stroke: black;
+  stroke-width: 1px;
+  z-index: 100;
+}
+#protograph_tooltip{
+  background-color:white;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  pointer-events:'none';
+  display:block;
+  width:fit-content;
+  height:fit-content;
+  padding:5px 10px;
+  position:absolute;
+  transition: all 0.35s;
+  font-size: 16px;
 }

@@ -3,39 +3,11 @@ import * as topojson from 'topojson-client';
 import {geoPath, geoCentroid, geoMercator} from 'd3-geo';
 import {scaleLinear} from 'd3-scale';
 import {min, max} from 'd3-array';
-// import Voronoi from '../js/Voronoi';
 
 class MapsCard extends React.Component {
   constructor(props) {
     super(props);
 
-    // let employed_score = {},
-    //   score = []
-
-    // this.props.dataJSON.data_points.forEach((e,i) => {
-    //   // console.log(e, "eeeee")
-    //   employed_score[e.state] = e.employed_value;
-    //   score.push(e.employed_value)
-
-    // });
-
-    this.state = {
-      projection: undefined,
-      regions: [],
-      outlines: [],
-      country: undefined,
-      path: undefined,
-      offsetWidth: undefined,
-      actualHeight: undefined,
-      x:'100px',
-      y:'100px',
-      showTooltip:false,
-      // employedScore: employed_score,
-      // score: score
-    }
-  }
-
-  componentWillMount() {
     let padding = this.props.mode === 'mobile' ? 20 : 0,
       offsetWidth = this.props.mode === 'mobile' ? 300 : 420,
       actualHeight = this.props.mode === 'mobile' ? 500 : 320
@@ -75,11 +47,8 @@ class MapsCard extends React.Component {
     })
 
     let outlines = country.features.map((d,i) => {
-
-      console.log(this.props.dataJSON[d.properties.NAME_1], "1")
       let heat_color = this.props.dataJSON[d.properties.NAME_1] === 0 ? 'protograph-no-value-color' : 'protograph-heat-color',
         opacity = this.props.dataJSON[d.properties.NAME_1] === 0 ? 1 : colorScale(this.props.dataJSON[d.properties.NAME_1])
-      // console.log(fill, "fill")
       return(
         <path
           key={i}
@@ -87,18 +56,84 @@ class MapsCard extends React.Component {
           d={path(d)}
           style={{opacity: opacity}}
           data-state_code={d.properties.NAME_1}
+          onMouseOut={(e) => this.handleMouseOut(e, d)}
+          onMouseMove={(e) => this.handleMouseMove(e, d)}
         />
       )
     })
-
-    this.setState({
+    this.state = {
       projection: projection,
+      x:'100px',
+      y:'100px',
+      showTooltip:false, 
       regions: regions,
       outlines: outlines,
       country: country,
       path: path,
       offsetWidth: offsetWidth,
-      actualHeight: actualHeight
+      actualHeight: actualHeight,
+      colorScale: colorScale     
+    }
+    // this.drawMap();
+  }
+
+  drawMap() {
+    let regions = this.state.country.features.map((d,i) => {
+      return(
+        <g key={i} className="region">
+          <path className="geo-region" d={this.state.path(d)}></path>
+        </g>
+      )
+    })
+
+    let outlines = this.state.country.features.map((d,i) => {
+      let heat_color = this.props.dataJSON[d.properties.NAME_1] === 0 ? 'protograph-no-value-color' : 'protograph-heat-color',
+        opacity = this.props.dataJSON[d.properties.NAME_1] === 0 ? 1 : this.state.colorScale(this.props.dataJSON[d.properties.NAME_1])
+      // console.log(opacity, "opacity")
+      return(
+        <path
+          key={i}
+          className={`geo region-outline ${heat_color}`}
+          d={this.state.path(d)}
+          style={{opacity: opacity}}
+          data-state_code={d.properties.NAME_1}
+          onMouseOut={(e) => this.handleMouseOut(e, d)}
+          onMouseMove={(e) => this.handleMouseMove(e, d)}
+        />
+      )
+    })
+    // console.log(regions, outlines, "000000")
+    this.setState({
+      regions: regions,
+      outlines: outlines
+    })    
+  }
+
+  componentWillReceiveProps() {
+     // console.log("receive props")
+    this.drawMap();
+  }
+
+  handleMouseMove (e, d) {
+    e.target.classList.add('region-outline-hover');
+    let rect = e.target.getBoundingClientRect();
+    let mx=e.pageX;
+    let my=e.pageY;
+    let cont = document.getElementById('map_and_tooltip_container'),
+      bbox = cont.getBoundingClientRect();
+    this.setState({
+      showTooltip: true,
+      x: mx - bbox.left + 15,
+      y: my - window.pageYOffset - bbox.top - 5,
+      currState:d.properties.NAME_1
+    });
+  }
+
+  handleMouseOut (e,d){
+    this.setState({
+      showTooltip:false,
+      x: 0,
+      y: 0
     })
   }
 
@@ -107,17 +142,19 @@ class MapsCard extends React.Component {
       strokeWidth: 0.675
     }
     const {projection, regions, outlines, country, path, offsetWidth, actualHeight} = this.state
+    // console.log(this.state, "render -------")
     return(
-      <div
-        id="map_and_tooltip_container" className="protograph-map-container">
+      <div id="map_and_tooltip_container" className="protograph-map-container">
         <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight}>
           <g id="regions-grp" className="regions">{regions}</g>
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>
         </svg>
+        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x,top:this.state.y}}> {this.state.currState} </div> : ''}
       </div>
     )
   }
+
 }
 
 export default MapsCard;

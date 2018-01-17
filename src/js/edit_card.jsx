@@ -10,18 +10,16 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
     this.state = {
       step: 1,
       dataJSON: {},
+      topoJSON: {},
       mode: "col16",
       publishing: false,
       schemaJSON: undefined,
       fetchingData: true,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined,
-      uiSchemaJSON: {},
-      refLinkDetails: undefined
+      uiSchemaJSON: {}
     }
-    this.refLinkSourcesURL = window.ref_link_sources_url
     this.toggleMode = this.toggleMode.bind(this);
-    this.formValidator = this.formValidator.bind(this);
   }
 
   exportData() {
@@ -32,7 +30,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    getDataObj["name"] = getDataObj.dataJSON.data.title.substr(0,225); // Reduces the name to ensure the slug does not get too long
+    getDataObj["name"] = getDataObj.dataJSON.data.employed_map_title.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
@@ -41,69 +39,25 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
     if (this.state.fetchingData){
       axios.all([
         axios.get(this.props.dataURL),
+        axios.get(this.props.topoURL),
         axios.get(this.props.schemaURL),
         axios.get(this.props.optionalConfigURL),
         axios.get(this.props.optionalConfigSchemaURL),
-        axios.get(this.props.uiSchemaURL),
-        axios.get(this.refLinkSourcesURL)
+        axios.get(this.props.uiSchemaURL)
       ])
-      .then(axios.spread((card, schema, opt_config, opt_config_schema, uiSchema, linkSources) => {
+      .then(axios.spread((card, topo, schema, opt_config, opt_config_schema, uiSchema) => {
         let stateVars = {
           fetchingData: false,
           dataJSON: card.data,
+          topoJSON: topo.data,
           schemaJSON: schema.data,
           optionalConfigJSON: opt_config.data,
           optionalConfigSchemaJSON: opt_config_schema.data,
-          uiSchemaJSON: uiSchema.data,
-          refLinkDetails: linkSources.data
-        },
-        links = stateVars.dataJSON.data.links;
-        stateVars.dataJSON.data.published_date = stateVars.dataJSON.data.published_date || (new Date).toString()
-
-        if (links.length) {
-          this.checkAndUpdateLinkInfo(links, stateVars.refLinkDetails);
+          uiSchemaJSON: uiSchema.data
         }
-
         this.setState(stateVars);
       }));
     }
-  }
-
-  checkAndUpdateLinkInfo(links, refLinkDetails) {
-    links.forEach((e,i) => {
-      let linkDetails = this.lookUpLinkDetail(e.link, refLinkDetails);
-      if (linkDetails) {
-        e.favicon_url = linkDetails.favicon_url;
-        e.publication_name = linkDetails.name;
-      }
-    });
-  }
-
-  lookUpLinkDetail(link, refLinkDetails) {
-    refLinkDetails = refLinkDetails || this.state.refLinkDetails;
-
-    let linkParams = this.parseUrl(link),
-      lookupLink = refLinkDetails.filter((e, i) => {
-        return e.url === linkParams.origin;
-      })[0];
-
-      return lookupLink;
-  }
-
-  parseUrl(url) {
-    var parser = document.createElement('a'),
-      search;
-    parser.href = url;
-    return {
-      protocol: parser.protocol,
-      host: parser.host,
-      hostnam: parser.hostname,
-      port: parser.port,
-      pathname: parser.pathname,
-      hash: parser.hash,
-      searchString: parser.search,
-      origin: parser.origin
-    };
   }
 
   onChangeHandler({formData}) {
@@ -111,9 +65,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       case 1:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          this.checkAndUpdateLinkInfo(formData.links)
-          dataJSON.data = formData;
-
+          dataJSON.data.map_title = formData;
           return {
             dataJSON: dataJSON
           }
@@ -122,12 +74,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       case 2:
         this.setState((prevState, prop) => {
           let dataJSON = prevState.dataJSON;
-          if (formData.analysis && formData.analysis.length > 0) {
-            dataJSON.data.analysis = formData.analysis;
-          } else {
-            delete dataJSON.data.analysis;
-          }
-
+          dataJSON.data.data_points = formData;
           return {
             dataJSON: dataJSON
           }
@@ -136,10 +83,14 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
     }
   }
 
-  onSubmitHandler({formData}) {
+   onSubmitHandler({formData}) {
     switch(this.state.step) {
       case 1:
-        this.setState({ step: 2 });
+        this.setState((prevStep, prop) => {
+          return {
+            step: prevStep.step + 1
+          }
+        });
         break;
       case 2:
         if (typeof this.props.onPublishCallback === "function") {
@@ -153,61 +104,33 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
     }
   }
 
-  formValidator(formData, errors) {
-    switch (this.state.step) {
-      case 1:
-        formData.links.forEach((e, i) => {
-          let details = this.lookUpLinkDetail(e.link);
-          if (!details) {
-            errors.links[i].addError("Article domain is invalid");
-          }
-        });
-        return errors;
-      default:
-        return errors;
-    }
-    return errors;
-  }
-
   renderSEO() {
-    let d = this.state.dataJSON.data,
-      linksHTML = "<ul>";
-    d.links.forEach(e => {
-      linksHTML += `<li><a href="${e.link}" target="_blank">${e.publication_name}</a></li>`
-    })
-    linksHTML += "</ul>";
-    let blockquote_string = `<h1>${d.title}</h1><p>${d.by_line}</p><p>${d.published_date}</p>${linksHTML}`;
-    let seo_blockquote = '<blockquote>' + blockquote_string + '</blockquote>'
+    let d = this.state.dataJSON.data;
+    let seo_blockquote = '<blockquote>' + d.map_title.employed_map_title + d.map_title.deaths_map_title + d.map_title.convicted_map_title + '</blockquote>'
     return seo_blockquote;
   }
 
-  renderSchemaJSON() {
-    let schema;
-    switch(this.state.step){
+  getFormData() {
+    switch(this.state.step) {
       case 1:
-        schema = JSON.parse(JSON.stringify(this.state.schemaJSON.properties.data))
-        delete schema.properties.analysis;
-        return schema;
+        return this.state.dataJSON.data.map_title;
         break;
       case 2:
-        schema = {
-          properties: {
-            analysis: this.state.schemaJSON.properties.data.properties.analysis
-          },
-          "type": "object",
-        }
-        return schema;
+        // console.log(this.state.dataJSON.data.data_points, "4th step sample")
+        return this.state.dataJSON.data.data_points;
         break;
     }
   }
 
-  renderFormData() {
-    switch(this.state.step) {
+  getSchemaJSON() {
+    switch(this.state.step){
       case 1:
-        return this.state.dataJSON.data;
+        // console.log(this.state.schemaJSON, "1th step schema")
+        return this.state.schemaJSON.properties.data.properties.map_title;
         break;
-      case 2:
-        return {analysis: this.state.dataJSON.data.analysis};
+      case 2:     
+        // console.log(this.state.schemaJSON, "4th step schema")   
+        return this.state.schemaJSON.properties.data.properties.data_points;
         break;
     }
   }
@@ -235,12 +158,10 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
   }
 
   getUISchemaJSON() {
-    switch (this.state.step) {
+    switch(this.state.step) {
       case 1:
-        return this.state.uiSchemaJSON.section1.data;
-        break;
       case 2:
-        return this.state.uiSchemaJSON.section2.data;
+        return {}
         break;
       default:
         return {};
@@ -285,15 +206,14 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    ToCluster
+                    ToManualScavengerCoverVizCard
                   </div>
                 </div>
-                <JSONSchemaForm schema={this.renderSchemaJSON()}
+                <JSONSchemaForm schema={this.getSchemaJSON()}
                   onSubmit={((e) => this.onSubmitHandler(e))}
                   onChange={((e) => this.onChangeHandler(e))}
                   uiSchema={this.getUISchemaJSON()}
-                  validate={this.formValidator}
-                  formData={this.renderFormData()}>
+                  formData = {this.getFormData()}>
                   <br/>
                   <a id="protograph-prev-link" className={`${this.state.publishing ? 'protograph-disable' : ''}`} onClick={((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
                   <button type="submit" className={`${this.state.publishing ? 'ui primary loading disabled button' : ''} default-button protograph-primary-button`}>{this.showButtonText()}</button>
@@ -303,16 +223,16 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
                 <div className="protograph-menu-container">
                   <div className="ui compact menu">
                     <a className={`item ${this.state.mode === 'col16' ? 'active' : ''}`}
-                      data-mode='col7'
+                      data-mode='col16'
                       onClick={this.toggleMode}
                     >
-                      col-7
+                      Col16
                     </a>
                     <a className={`item ${this.state.mode === 'col4' ? 'active' : ''}`}
                       data-mode='col4'
                       onClick={this.toggleMode}
                     >
-                      col-4
+                      Col4
                     </a>
                   </div>
                 </div>
@@ -320,6 +240,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
                   <Card
                     mode={this.state.mode}
                     dataJSON={this.state.dataJSON}
+                    topoJSON={this.state.topoJSON}
                     schemaJSON={this.state.schemaJSON}
                     optionalConfigJSON={this.state.optionalConfigJSON}
                     optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
