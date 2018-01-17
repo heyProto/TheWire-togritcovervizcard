@@ -37,8 +37,8 @@ class MapsCard extends React.Component {
 
   componentWillMount() {
     let padding = this.props.mode === 'mobile' ? 20 : 0,
-      offsetWidth = this.props.mode === 'mobile' ? 300 : 420 ,
-      actualHeight = this.props.mode === 'mobile' ? 500 : 300
+      offsetWidth = this.props.mode === 'mobile' ? 300 : 420,
+      actualHeight = this.props.mode === 'mobile' ? 500 : 320
 
     let tx = this.props.mode === 'mobile' ? offsetWidth / 2 : offsetWidth / 2;
     let ch = this.props.topoJSON,
@@ -110,7 +110,7 @@ class MapsCard extends React.Component {
     return(
       <div
         id="map_and_tooltip_container" className="protograph-map-container">
-        <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight+60}>
+        <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight}>
           <g id="regions-grp" className="regions">{regions}</g>
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>

@@ -147,9 +147,9 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                   topoJSON={this.state.topoJSON}
                   mode={this.props.mode}
                 />
-            </div>            
+            </div> 
+            <div className="protograph-col16-hint-text">{data.hint_text}</div>           
           </div> 
-          <div className="protograph-col16-hint-text"></div>
         </div>
       )
     }

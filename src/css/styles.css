@@ -19,11 +19,11 @@ body {
 
 .protograph-col16-navbar-area{
   height: 70px;
-  background: red;
+  background: #a9a8a8;
 }
 
 .protograph-col16-map-area {
-  background: grey;
+  background: lightgrey;
   height: 360px;
 }
 
@@ -32,7 +32,7 @@ body {
 }
 
 .protograph-no-value-color{
-  fill: white;
+  fill: #a9a8a8;
 }
 
 .protograph-map-div{
