@@ -97,7 +97,8 @@ export default class toManualScavengerCoverVizCard extends React.Component {
         convicted_data = {},
         employed_score = [],
         deaths_score = [],
-        convicted_score = [];
+        convicted_score = [],
+        scores = [];
     
       data.data_points.forEach((e,i) => {
         employed_data[e.state] = e.employed_value;
@@ -111,28 +112,28 @@ export default class toManualScavengerCoverVizCard extends React.Component {
       let employed_count = employed_score.reduce((a, b) => a + b, 0),
         deaths_count = deaths_score.reduce((a, b) => a + b, 0),
         convicted_count = convicted_score.reduce((a, b) => a + b, 0);
+
+      scores = employed_score.concat(deaths_score, convicted_score)
+      // console.log(scores, "scores")
       return(
         <div id="protograph_div" className="protograph-col16-mode">
-          <div className="protograph-col16-navbar-area">
-
-          </div>
+          <div className="protograph-navbar-area"></div>
           <div className="protograph-col16-map-area">
             <div className="protograph-map-div">
               <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
               <Map
-                  dataJSON={employed_data}
-                  scoreArr={employed_score}
-                  allData={this.state.dataJSON}
-                  topoJSON={this.state.topoJSON}
-                  mode={this.props.mode}
-
+                dataJSON={employed_data}
+                scoreArr={scores}
+                allData={this.state.dataJSON}
+                topoJSON={this.state.topoJSON}
+                mode={this.props.mode}
                 />
             </div>
             <div className="protograph-map-div">
               <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
               <Map
                   dataJSON={deaths_data}
-                  scoreArr={deaths_score}
+                  scoreArr={scores}
                   allData={this.state.dataJSON}
                   topoJSON={this.state.topoJSON}
                   mode={this.props.mode}
@@ -142,7 +143,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
               <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
               <Map
                   dataJSON={convicted_data}
-                  scoreArr={convicted_score}
+                  scoreArr={scores}
                   allData={this.state.dataJSON}
                   topoJSON={this.state.topoJSON}
                   mode={this.props.mode}
@@ -159,9 +160,36 @@ export default class toManualScavengerCoverVizCard extends React.Component {
     if (this.state.fetchingData) {
       return (<div>Loading</div>)
     } else {
-      const data = this.state.dataJSON.data;
+      let data = this.state.dataJSON.data,
+        employed_data = {},
+        deaths_data = {},
+        convicted_data = {},
+        employed_score = [],
+        deaths_score = [],
+        convicted_score = [];
+    
+      data.data_points.forEach((e,i) => {
+        employed_data[e.state] = e.employed_value;
+        deaths_data[e.state] = e.deaths_value;
+        convicted_data[e.state] = e.convicted_value;
+        employed_score.push(e.employed_value)
+        deaths_score.push(e.deaths_value)
+        convicted_score.push(e.convicted_value)
+      });
+
+      let employed_count = employed_score.reduce((a, b) => a + b, 0),
+        deaths_count = deaths_score.reduce((a, b) => a + b, 0),
+        convicted_count = convicted_score.reduce((a, b) => a + b, 0);
+
       return (
-        <div>Mobile mode coming before EOD.</div>
+        <div className="protograph-col4-mode">
+          <div className="protograph-navbar-area"></div>
+          <div className="protograph-col4-map-area">
+            <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
+            <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
+            <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
+          </div>
+        </div>
       )
     }
   }

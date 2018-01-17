@@ -1,8 +1,9 @@
 import React from 'react';
 import * as topojson from 'topojson-client';
 import {geoPath, geoCentroid, geoMercator} from 'd3-geo';
-import {scaleLinear} from 'd3-scale';
+import {scaleLinear, scaleOrdinal, schemeCategory20c} from 'd3-scale';
 import {min, max} from 'd3-array';
+import {select} from 'd3-selection';
 
 class MapsCard extends React.Component {
   constructor(props) {
@@ -34,9 +35,10 @@ class MapsCard extends React.Component {
       .translate(offset);
     path = path.projection(projection);
 
-    let colorScale = scaleLinear()
-      .domain([min(this.props.scoreArr), max(this.props.scoreArr)])
-      .range([0.1, 0.9])
+    let colorScale = scaleOrdinal()
+      .domain([1, max(this.props.scoreArr)])
+      // .domain([1, 726])
+      .range(["#f58686", "#f15555", "#ed2525", "#bc0a0a", "#760606"])
 
     let regions = country.features.map((d,i) => {
       return(
@@ -54,7 +56,7 @@ class MapsCard extends React.Component {
           key={i}
           className={`geo region-outline ${heat_color}`}
           d={path(d)}
-          style={{opacity: opacity}}
+          style={{fill: opacity}}
           data-state_code={d.properties.NAME_1}
           onMouseOut={(e) => this.handleMouseOut(e, d)}
           onMouseMove={(e) => this.handleMouseMove(e, d)}
@@ -120,22 +122,22 @@ class MapsCard extends React.Component {
     switch (typeof column) {
       case "string":
         data.forEach(datum => {
-            key = datum[column] ? datum[column] : "NA";
-            if (grouped_data[key]) {
-                grouped_data[key].push(datum);
-            } else {
-                grouped_data[key] = [datum];
-            }
+          key = datum[column] ? datum[column] : "NA";
+          if (grouped_data[key]) {
+            grouped_data[key].push(datum);
+          } else {
+            grouped_data[key] = [datum];
+          }
         });
         break;
       case "function":
         data.forEach(datum => {
-            let key = column(datum);
-            if (grouped_data[key]) {
-                grouped_data[key].push(datum);
-            } else {
-                grouped_data[key] = [datum];
-            }
+          let key = column(datum);
+          if (grouped_data[key]) {
+            grouped_data[key].push(datum);
+          } else {
+            grouped_data[key] = [datum];
+          }
         });
         break;
     }
@@ -143,6 +145,14 @@ class MapsCard extends React.Component {
   }
 
   handleMouseMove (e, d) {
+    let target = e.target;
+    
+    document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {return e.setAttribute('fill-opacity', 0.1)
+    })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.setAttribute('fill-opacity', 1)
+    })
+
     e.target.classList.add('region-outline-hover');
     let rect = e.target.getBoundingClientRect();
     let mx = e.pageX;
@@ -161,8 +171,11 @@ class MapsCard extends React.Component {
   }
 
   handleMouseOut (e,d){
+    document.querySelectorAll('.region-outline').forEach((e) => {
+      return e.setAttribute('fill-opacity', 1)
+    })
     this.setState({
-      showTooltip:false,
+      showTooltip: false,
       x: 0,
       y: 0
     })
@@ -180,7 +193,7 @@ class MapsCard extends React.Component {
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>
         </svg>
-        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x,top:this.state.y}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
+        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x, top:this.state.y}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
       </div>
     )
   }
