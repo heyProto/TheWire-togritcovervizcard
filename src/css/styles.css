@@ -49,6 +49,7 @@ body {
   fill: red;
 }*/
 
+
 .protograph-no-value-color{
   fill: #a9a8a8;
 }
@@ -57,12 +58,11 @@ body {
   width: 420px;
   display: inline-block;
 }
-
-.region-outline{
+/*.region-outline{
   cursor: pointer;
   z-index: -1;
   fill-rule: nonzero;
-}
+}*/
 .region-outline:hover {
   stroke: black;
   stroke-width: 1px;

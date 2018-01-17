@@ -30,7 +30,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    getDataObj["name"] = getDataObj.dataJSON.data.employed_map_title.substr(0,225); // Reduces the name to ensure the slug does not get too long
+    getDataObj["name"] = getDataObj.dataJSON.data.title.employed_map_title.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 

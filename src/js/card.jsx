@@ -60,14 +60,6 @@ export default class toManualScavengerCoverVizCard extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.dataJSON) {
-  //     this.setState({
-  //       dataJSON: nextProps.dataJSON
-  //     });
-  //   }
-  // }
-
   getLanguageTexts(languageConfig) {
     let language = languageConfig ? languageConfig : "hindi",
       text_obj;

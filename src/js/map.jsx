@@ -152,6 +152,12 @@ class MapsCard extends React.Component {
     document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
       return e.setAttribute('fill-opacity', 1)
     })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.style.strokeWidth = 1
+    })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.style.stroke = "black"
+    })
 
     e.target.classList.add('region-outline-hover');
     let rect = e.target.getBoundingClientRect();
@@ -173,6 +179,9 @@ class MapsCard extends React.Component {
   handleMouseOut (e,d){
     document.querySelectorAll('.region-outline').forEach((e) => {
       return e.setAttribute('fill-opacity', 1)
+    })
+    document.querySelectorAll('.region-outline').forEach((e) => {
+      return e.style.strokeWidth = 0
     })
     this.setState({
       showTooltip: false,
