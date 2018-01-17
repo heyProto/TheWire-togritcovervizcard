@@ -61,6 +61,8 @@ class MapsCard extends React.Component {
         />
       )
     })
+    let grouped_data = this.groupBy(this.props.allData.data.data_points, "state");
+    // console.log(grouped_data, "grouped_data")
     this.state = {
       projection: projection,
       x:'100px',
@@ -72,7 +74,8 @@ class MapsCard extends React.Component {
       path: path,
       offsetWidth: offsetWidth,
       actualHeight: actualHeight,
-      colorScale: colorScale     
+      colorScale: colorScale,
+      groupedData: grouped_data     
     }
     // this.drawMap();
   }
@@ -89,7 +92,6 @@ class MapsCard extends React.Component {
     let outlines = this.state.country.features.map((d,i) => {
       let heat_color = this.props.dataJSON[d.properties.NAME_1] === 0 ? 'protograph-no-value-color' : 'protograph-heat-color',
         opacity = this.props.dataJSON[d.properties.NAME_1] === 0 ? 1 : this.state.colorScale(this.props.dataJSON[d.properties.NAME_1])
-      // console.log(opacity, "opacity")
       return(
         <path
           key={i}
@@ -102,7 +104,6 @@ class MapsCard extends React.Component {
         />
       )
     })
-    // console.log(regions, outlines, "000000")
     this.setState({
       regions: regions,
       outlines: outlines
@@ -110,22 +111,52 @@ class MapsCard extends React.Component {
   }
 
   componentWillReceiveProps() {
-     // console.log("receive props")
     this.drawMap();
+  }
+
+  groupBy(data, column) {
+    let grouped_data = {},
+      key;
+    switch (typeof column) {
+      case "string":
+        data.forEach(datum => {
+            key = datum[column] ? datum[column] : "NA";
+            if (grouped_data[key]) {
+                grouped_data[key].push(datum);
+            } else {
+                grouped_data[key] = [datum];
+            }
+        });
+        break;
+      case "function":
+        data.forEach(datum => {
+            let key = column(datum);
+            if (grouped_data[key]) {
+                grouped_data[key].push(datum);
+            } else {
+                grouped_data[key] = [datum];
+            }
+        });
+        break;
+    }
+    return grouped_data;
   }
 
   handleMouseMove (e, d) {
     e.target.classList.add('region-outline-hover');
     let rect = e.target.getBoundingClientRect();
-    let mx=e.pageX;
-    let my=e.pageY;
+    let mx = e.pageX;
+    let my = e.pageY;
     let cont = document.getElementById('map_and_tooltip_container'),
       bbox = cont.getBoundingClientRect();
     this.setState({
       showTooltip: true,
       x: mx - bbox.left + 15,
       y: my - window.pageYOffset - bbox.top - 5,
-      currState:d.properties.NAME_1
+      currState: d.properties.NAME_1,
+      employedScore: this.state.groupedData[d.properties.NAME_1][0].employed_value,
+      deathScore: this.state.groupedData[d.properties.NAME_1][0].deaths_value,
+      convictedScore: this.state.groupedData[d.properties.NAME_1][0].convicted_value
     });
   }
 
@@ -142,7 +173,6 @@ class MapsCard extends React.Component {
       strokeWidth: 0.675
     }
     const {projection, regions, outlines, country, path, offsetWidth, actualHeight} = this.state
-    // console.log(this.state, "render -------")
     return(
       <div id="map_and_tooltip_container" className="protograph-map-container">
         <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight}>
@@ -150,7 +180,7 @@ class MapsCard extends React.Component {
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>
         </svg>
-        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x,top:this.state.y}}> {this.state.currState} </div> : ''}
+        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x,top:this.state.y}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
       </div>
     )
   }
