@@ -68,8 +68,8 @@ class MapsCard extends React.Component {
     // console.log(grouped_data, "grouped_data")
     this.state = {
       projection: projection,
-      x:'100px',
-      y:'100px',
+      // x1:'100px',
+      // y1:'100px',
       showTooltip:false, 
       regions: regions,
       outlines: outlines,
@@ -117,6 +117,84 @@ class MapsCard extends React.Component {
     this.drawMap();
   }
 
+  handleMouseMove (e, d) {
+    let target = e.target;
+    
+    document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {
+      return e.setAttribute('fill-opacity', 0.7)
+    })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.setAttribute('fill-opacity', 1)
+    })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.style.strokeWidth = 1.5
+    })
+    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
+      return e.style.stroke = "black"
+    })
+
+    e.target.classList.add('region-outline-hover');
+    let rect = e.target.getBoundingClientRect();
+    let mx = e.pageX;
+    let my = e.pageY;
+    let cont1 = document.getElementById('map_and_tooltip_container-map-1'),
+      bbox1 = cont1.getBoundingClientRect();
+    let cont2 = document.getElementById('map_and_tooltip_container-map-2'),
+      bbox2 = cont2.getBoundingClientRect();
+    let cont3 = document.getElementById('map_and_tooltip_container-map-3'),
+      bbox3 = cont3.getBoundingClientRect();
+    this.setState({
+      showTooltip: true,
+      x1: mx - bbox1.left + 15,
+      x2: mx - bbox2.left + 15,
+      x3: mx - bbox3.left + 15,
+      y1: my - window.pageYOffset - bbox1.top - 5,
+      // x2: mx - bbox2.left + 15 + 180,
+      y2: my - window.pageYOffset - bbox2.top - 5,
+      // x3: mx - bbox3.left + 15 + (180 + 180),
+      y3: my - window.pageYOffset - bbox3.top - 5,
+      currState: d.properties.NAME_1,
+      employedScore: this.state.groupedData[d.properties.NAME_1][0].employed_value,
+      deathScore: this.state.groupedData[d.properties.NAME_1][0].deaths_value,
+      convictedScore: this.state.groupedData[d.properties.NAME_1][0].convicted_value
+    });
+  }
+
+  handleMouseOut (e,d){
+    document.querySelectorAll('.region-outline').forEach((e) => {
+      return e.setAttribute('fill-opacity', 1)
+    })
+    document.querySelectorAll('.region-outline').forEach((e) => {
+      return e.style.strokeWidth = 0
+    })
+    this.setState({
+     showTooltip: false,
+      x1: 0,
+      y1: 0,
+      x2: 0,
+      y2: 0,
+      x3: 0,
+      y3: 0
+    })
+  }
+
+  render(){
+    let styles = {
+      strokeWidth: 0.675
+    }
+    const {projection, regions, outlines, country, path, offsetWidth, actualHeight} = this.state
+    return(
+      <div id={`map_and_tooltip_container-${this.props.identifier}`} className="protograph-map-container">
+        <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight}>
+          <g id="regions-grp" className="regions">{regions}</g>
+          <path className='geo-borders' d={path(country)}></path>
+          <g className="outlines" style={styles}>{outlines}</g>
+        </svg>
+        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x1, top:this.state.y1}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
+      </div>
+    )
+  }
+
   groupBy(data, column) {
     let grouped_data = {},
       key;
@@ -145,69 +223,6 @@ class MapsCard extends React.Component {
     return grouped_data;
   }
 
-  handleMouseMove (e, d) {
-    let target = e.target;
-    
-    document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {
-      return e.setAttribute('fill-opacity', 0.7)
-    })
-    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
-      return e.setAttribute('fill-opacity', 1)
-    })
-    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
-      return e.style.strokeWidth = 1
-    })
-    document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
-      return e.style.stroke = "black"
-    })
-
-    e.target.classList.add('region-outline-hover');
-    let rect = e.target.getBoundingClientRect();
-    let mx = e.pageX;
-    let my = e.pageY;
-    let cont = document.getElementById('map_and_tooltip_container'),
-      bbox = cont.getBoundingClientRect();
-    this.setState({
-      showTooltip: true,
-      x: mx - bbox.left + 15,
-      y: my - window.pageYOffset - bbox.top - 5,
-      currState: d.properties.NAME_1,
-      employedScore: this.state.groupedData[d.properties.NAME_1][0].employed_value,
-      deathScore: this.state.groupedData[d.properties.NAME_1][0].deaths_value,
-      convictedScore: this.state.groupedData[d.properties.NAME_1][0].convicted_value
-    });
-  }
-
-  handleMouseOut (e,d){
-    document.querySelectorAll('.region-outline').forEach((e) => {
-      return e.setAttribute('fill-opacity', 1)
-    })
-    document.querySelectorAll('.region-outline').forEach((e) => {
-      return e.style.strokeWidth = 0
-    })
-    this.setState({
-      showTooltip: false,
-      x: 0,
-      y: 0
-    })
-  }
-
-  render(){
-    let styles = {
-      strokeWidth: 0.675
-    }
-    const {projection, regions, outlines, country, path, offsetWidth, actualHeight} = this.state
-    return(
-      <div id="map_and_tooltip_container" className="protograph-map-container">
-        <svg id='map_svg' viewBox={`0, 0, ${offsetWidth}, ${actualHeight}`} width={offsetWidth} height={actualHeight}>
-          <g id="regions-grp" className="regions">{regions}</g>
-          <path className='geo-borders' d={path(country)}></path>
-          <g className="outlines" style={styles}>{outlines}</g>
-        </svg>
-        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x, top:this.state.y}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
-      </div>
-    )
-  }
 
 }
 

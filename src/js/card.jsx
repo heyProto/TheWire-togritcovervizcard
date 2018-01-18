@@ -119,6 +119,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                 allData={this.state.dataJSON}
                 topoJSON={this.state.topoJSON}
                 mode={this.props.mode}
+                identifier={'map-1'}
                 />
             </div>
             <div className="protograph-map-div">
@@ -129,6 +130,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                   allData={this.state.dataJSON}
                   topoJSON={this.state.topoJSON}
                   mode={this.props.mode}
+                  identifier={'map-2'}
                 />
             </div>
             <div className="protograph-map-div">
@@ -139,6 +141,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                   allData={this.state.dataJSON}
                   topoJSON={this.state.topoJSON}
                   mode={this.props.mode}
+                  identifier={'map-3'}
                 />
             </div> 
             <div className="protograph-col16-hint-text">{data.hint_text}</div>           
