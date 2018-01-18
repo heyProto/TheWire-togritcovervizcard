@@ -9,9 +9,9 @@ class MapsCard extends React.Component {
   constructor(props) {
     super(props);
 
-    let padding = this.props.mode === 'mobile' ? 20 : 0,
-      offsetWidth = this.props.mode === 'mobile' ? 300 : 235,
-      actualHeight = this.props.mode === 'mobile' ? 500 : 270
+    let padding = 0,
+      offsetWidth = 235,
+      actualHeight = 270;
 
     let tx = this.props.mode === 'mobile' ? offsetWidth / 2 : offsetWidth / 2;
     let ch = this.props.topoJSON,

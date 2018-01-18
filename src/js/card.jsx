@@ -105,50 +105,11 @@ export default class toManualScavengerCoverVizCard extends React.Component {
         deaths_count = deaths_score.reduce((a, b) => a + b, 0),
         convicted_count = convicted_score.reduce((a, b) => a + b, 0);
 
+      let deaths_bar_width = (deaths_count * 100)/employed_count + '%',
+        convicted_bar_width = (convicted_count * 100)/employed_count + '%';
+      // console.log(deaths_map_width, "deaths_map_width")
+
       scores = employed_score.concat(deaths_score, convicted_score)
-      // console.log(scores, "scores")
-      // return(
-      //   <div id="protograph_div" className="protograph-col16-mode">
-      //     <div className="protograph-navbar-area"></div>
-      //     <div className="protograph-col16-map-area">
-      //       <div className="protograph-map-div">
-      //         <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
-      //         <Map
-      //           dataJSON={employed_data}
-      //           scoreArr={scores}
-      //           allData={this.state.dataJSON}
-      //           topoJSON={this.state.topoJSON}
-      //           mode={this.props.mode}
-      //           identifier={'map-1'}
-      //           />
-      //       </div>
-      //       <div className="protograph-map-div">
-      //         <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
-      //         <Map
-      //             dataJSON={deaths_data}
-      //             scoreArr={scores}
-      //             allData={this.state.dataJSON}
-      //             topoJSON={this.state.topoJSON}
-      //             mode={this.props.mode}
-      //             identifier={'map-2'}
-      //           />
-      //       </div>
-      //       <div className="protograph-map-div">
-      //         <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
-      //         <Map
-      //             dataJSON={convicted_data}
-      //             scoreArr={scores}
-      //             allData={this.state.dataJSON}
-      //             topoJSON={this.state.topoJSON}
-      //             mode={this.props.mode}
-      //             identifier={'map-3'}
-      //           />
-      //       </div> 
-      //       <div className="protograph-col16-hint-text">{data.hint_text}</div>           
-      //     </div> 
-      //   </div>
-      // )
-      
       return(
         <div className="stink-cover">
           <div className="first-map single-map">
@@ -176,7 +137,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
             <div className="content-area">
               <div className="pre-text">Of which</div>
               <div className="counter-area">
-                <div className="bar-chart"></div>
+                <div className="bar-chart" style={{width:deaths_bar_width}}></div>
                 <div className="counter-value">{deaths_count}</div>
               </div>
               <div className="post-text">{data.map_title.deaths_map_title}</div>
@@ -197,7 +158,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
             <div className="content-area">
               <div className="pre-text">Of which</div>
               <div className="counter-area">
-                <div className="bar-chart"></div>
+                <div className="bar-chart" style={{width:convicted_bar_width}}></div>
                 <div className="counter-value">{convicted_count}</div>
               </div>
               <div className="post-text">{data.map_title.convicted_map_title}</div>
