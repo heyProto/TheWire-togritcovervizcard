@@ -69,10 +69,21 @@
           "maxItems": 36,
           "type": "array"
         },
-        "hint_text": {
-          "id": "/properties/data/properties/hint_text",
-          "type": "string",
-          "title": "Hint Text"
+        "title_and_hint": {
+          "id": "/properties/data/properties/title_and_hint",
+          "type": "object",
+          "properties": {
+            "title": {
+              "id": "/properties/data/properties/title_and_hint/properties/title",
+              "type": "string",
+              "title": "Title"
+            },
+            "hint": {
+              "$id": "/properties/data/properties/title_and_hint/properties/hint",
+              "type": "string",
+              "title": "Hint Text"
+            }
+          }
         }
       },
       "title": "Card Data",

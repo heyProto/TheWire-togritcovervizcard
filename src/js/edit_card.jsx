@@ -30,7 +30,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    getDataObj["name"] = getDataObj.dataJSON.data.map_title.employed_map_title.substr(0,225); // Reduces the name to ensure the slug does not get too long
+    getDataObj["name"] = getDataObj.dataJSON.data.title_and_hint.title.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
@@ -80,19 +80,29 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
           }
         })
         break;
+      case 3:
+        this.setState((prevState, prop) => {
+          let dataJSON = prevState.dataJSON;
+          dataJSON.data.title_and_hint = formData;
+          return {
+            dataJSON: dataJSON
+          }
+        })
+        break;
     }
   }
 
    onSubmitHandler({formData}) {
     switch(this.state.step) {
       case 1:
+      case 2:
         this.setState((prevStep, prop) => {
           return {
             step: prevStep.step + 1
           }
         });
         break;
-      case 2:
+      case 3:
         if (typeof this.props.onPublishCallback === "function") {
           this.setState({ publishing: true });
           let publishCallback = this.props.onPublishCallback();
@@ -106,7 +116,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
 
   renderSEO() {
     let d = this.state.dataJSON.data;
-    let seo_blockquote = '<blockquote>' + d.map_title.employed_map_title + d.map_title.deaths_map_title + d.map_title.convicted_map_title + '</blockquote>'
+    let seo_blockquote = '<blockquote>' + d.map_title.employed_map_title + d.map_title.deaths_map_title + d.map_title.convicted_map_title + d.title_and_hint.title+'</blockquote>'
     return seo_blockquote;
   }
 
@@ -118,6 +128,10 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
       case 2:
         // console.log(this.state.dataJSON.data.data_points, "4th step sample")
         return this.state.dataJSON.data.data_points;
+        break;
+      case 3:
+        // console.log(this.state.dataJSON.data.data_points, "4th step sample")
+        return this.state.dataJSON.data.title_and_hint;
         break;
     }
   }
@@ -132,6 +146,10 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
         // console.log(this.state.schemaJSON, "4th step schema")   
         return this.state.schemaJSON.properties.data.properties.data_points;
         break;
+      case 3:     
+        // console.log(this.state.schemaJSON, "4th step schema")   
+        return this.state.schemaJSON.properties.data.properties.title_and_hint;
+        break;
     }
   }
 
@@ -141,6 +159,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
         return '';
         break;
       case 2:
+      case 3:
         return '< Back';
         break;
     }
@@ -149,9 +168,10 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
   showButtonText() {
     switch(this.state.step) {
       case 1:
+      case 2:
         return 'Next';
         break;
-      case 2:
+      case 3:
         return 'Publish';
         break;
     }
@@ -161,6 +181,7 @@ export default class editToManualScavengerCoverVizCard extends React.Component {
     switch(this.state.step) {
       case 1:
       case 2:
+      case 3:
         return {}
         break;
       default:

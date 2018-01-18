@@ -107,12 +107,60 @@ export default class toManualScavengerCoverVizCard extends React.Component {
 
       scores = employed_score.concat(deaths_score, convicted_score)
       // console.log(scores, "scores")
+      // return(
+      //   <div id="protograph_div" className="protograph-col16-mode">
+      //     <div className="protograph-navbar-area"></div>
+      //     <div className="protograph-col16-map-area">
+      //       <div className="protograph-map-div">
+      //         <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
+      //         <Map
+      //           dataJSON={employed_data}
+      //           scoreArr={scores}
+      //           allData={this.state.dataJSON}
+      //           topoJSON={this.state.topoJSON}
+      //           mode={this.props.mode}
+      //           identifier={'map-1'}
+      //           />
+      //       </div>
+      //       <div className="protograph-map-div">
+      //         <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
+      //         <Map
+      //             dataJSON={deaths_data}
+      //             scoreArr={scores}
+      //             allData={this.state.dataJSON}
+      //             topoJSON={this.state.topoJSON}
+      //             mode={this.props.mode}
+      //             identifier={'map-2'}
+      //           />
+      //       </div>
+      //       <div className="protograph-map-div">
+      //         <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
+      //         <Map
+      //             dataJSON={convicted_data}
+      //             scoreArr={scores}
+      //             allData={this.state.dataJSON}
+      //             topoJSON={this.state.topoJSON}
+      //             mode={this.props.mode}
+      //             identifier={'map-3'}
+      //           />
+      //       </div> 
+      //       <div className="protograph-col16-hint-text">{data.hint_text}</div>           
+      //     </div> 
+      //   </div>
+      // )
+      
       return(
-        <div id="protograph_div" className="protograph-col16-mode">
-          <div className="protograph-navbar-area"></div>
-          <div className="protograph-col16-map-area">
-            <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
+        <div className="stink-cover">
+          <div className="first-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Total</div>
+              <div className="counter-area">
+                <div className="bar-chart"></div>
+                <div className="counter-value">{employed_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.employed_map_title}</div>
+            </div>
+            <div className="map-area">
               <Map
                 dataJSON={employed_data}
                 scoreArr={scores}
@@ -120,32 +168,54 @@ export default class toManualScavengerCoverVizCard extends React.Component {
                 topoJSON={this.state.topoJSON}
                 mode={this.props.mode}
                 identifier={'map-1'}
-                />
+              />
             </div>
-            <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
-              <Map
-                  dataJSON={deaths_data}
-                  scoreArr={scores}
-                  allData={this.state.dataJSON}
-                  topoJSON={this.state.topoJSON}
-                  mode={this.props.mode}
-                  identifier={'map-2'}
-                />
+          </div>
+
+          <div className="second-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Of which</div>
+              <div className="counter-area">
+                <div className="bar-chart"></div>
+                <div className="counter-value">{deaths_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.deaths_map_title}</div>
             </div>
-            <div className="protograph-map-div">
-              <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
+            <div className="map-area">
               <Map
-                  dataJSON={convicted_data}
-                  scoreArr={scores}
-                  allData={this.state.dataJSON}
-                  topoJSON={this.state.topoJSON}
-                  mode={this.props.mode}
-                  identifier={'map-3'}
-                />
-            </div> 
-            <div className="protograph-col16-hint-text">{data.hint_text}</div>           
-          </div> 
+                dataJSON={deaths_data}
+                scoreArr={scores}
+                allData={this.state.dataJSON}
+                topoJSON={this.state.topoJSON}
+                mode={this.props.mode}
+                identifier={'map-2'}
+              />
+            </div>
+          </div>
+
+          <div className="third-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Of which</div>
+              <div className="counter-area">
+                <div className="bar-chart"></div>
+                <div className="counter-value">{convicted_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.convicted_map_title}</div>
+            </div>
+            <div className="map-area">
+              <Map
+                dataJSON={convicted_data}
+                scoreArr={scores}
+                allData={this.state.dataJSON}
+                topoJSON={this.state.topoJSON}
+                mode={this.props.mode}
+                identifier={'map-3'}
+              />
+            </div>
+          </div>
+
+          <div className="cover-title">{data.title_and_hint.title}</div>
+          <div className="cover-hint-text">{data.title_and_hint.hint}</div>
         </div>
       )
     }

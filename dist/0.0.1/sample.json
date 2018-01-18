@@ -1,9 +1,9 @@
 {
   "data": {
     "map_title": {
-      "employed_map_title": "No. of Employed",
-      "deaths_map_title": "No. of Deaths",
-      "convicted_map_title": "No. of Convicted"
+      "employed_map_title": "Manual Scavengers Employed",
+      "deaths_map_title": "Died",
+      "convicted_map_title": "Convicted"
     },
     "data_points": [
       {
@@ -222,6 +222,10 @@
         "convicted_value": 0
       }
     ],
-    "hint_text": "* Merged Wilson and government data by taking states unique to each set. In case of overlap, took the larger count"
+    "title_and_hint":{
+      "title": "Why are there no convictions? ",
+      "hint": "* Merged Wilson and government data by taking states unique to each set. In case of overlap, took the larger count"
+    }
+    
   }
 }
