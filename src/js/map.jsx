@@ -3,7 +3,7 @@ import * as topojson from 'topojson-client';
 import {geoPath, geoCentroid, geoMercator} from 'd3-geo';
 import {scaleLinear, scaleOrdinal, schemeCategory20c} from 'd3-scale';
 import {min, max} from 'd3-array';
-import {select} from 'd3-selection';
+import {rgb, hsl} from 'd3-color';
 
 class MapsCard extends React.Component {
   constructor(props) {
@@ -38,7 +38,8 @@ class MapsCard extends React.Component {
     let colorScale = scaleOrdinal()
       .domain([1, max(this.props.scoreArr)])
       // .domain([1, 726])
-      .range(["#f58686", "#f15555", "#ed2525", "#bc0a0a", "#760606"])
+      // .range(["#f58686", "#f15555", "#ed2525", "#bc0a0a", "#760606"])
+      .range(["#ff6d6d", "#ff0000", "#b30000", "#7d0000", "#570000"])
 
     let regions = country.features.map((d,i) => {
       return(
@@ -56,7 +57,7 @@ class MapsCard extends React.Component {
           key={i}
           className={`geo region-outline ${heat_color}`}
           d={path(d)}
-          style={{fill: opacity}}
+          fill={opacity}
           data-state_code={d.properties.NAME_1}
           onMouseOut={(e) => this.handleMouseOut(e, d)}
           onMouseMove={(e) => this.handleMouseMove(e, d)}
@@ -99,7 +100,7 @@ class MapsCard extends React.Component {
           key={i}
           className={`geo region-outline ${heat_color}`}
           d={this.state.path(d)}
-          style={{opacity: opacity}}
+          fill={opacity}
           data-state_code={d.properties.NAME_1}
           onMouseOut={(e) => this.handleMouseOut(e, d)}
           onMouseMove={(e) => this.handleMouseMove(e, d)}
@@ -147,7 +148,8 @@ class MapsCard extends React.Component {
   handleMouseMove (e, d) {
     let target = e.target;
     
-    document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {return e.setAttribute('fill-opacity', 0.1)
+    document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {
+      return e.setAttribute('fill-opacity', 0.7)
     })
     document.querySelectorAll(`.region-outline[data-state_code='${d.properties.NAME_1}']`).forEach((e) => {
       return e.setAttribute('fill-opacity', 1)
