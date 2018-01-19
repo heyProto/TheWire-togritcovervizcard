@@ -35,6 +35,7 @@ ProtoGraph.Card.toManualScavengerCoverVizCard.prototype.renderScreenshot = funct
 ProtoGraph.Card.toManualScavengerCoverVizCard.prototype.render = function () {
   ReactDOM.render(
     <Card
+      selector={this.options.selector}
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
       topoURL={this.options.topo_url}

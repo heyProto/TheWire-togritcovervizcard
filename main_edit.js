@@ -16,6 +16,7 @@ ProtoGraph.Card.toManualScavengerCoverVizCard.prototype.renderEdit = function (o
   this.onPublishCallback = onPublishCallback;
   ReactDOM.render(
     <EditCard
+      selector={this.options.selector}
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
       topoURL={this.options.topo_url}

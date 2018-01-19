@@ -36,7 +36,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
   }
 
   exportData() {
-    return document.getElementById('protograph_div').getBoundingClientRect();
+    return this.props.selector.getBoundingClientRect();
   }
 
   componentDidMount() {
