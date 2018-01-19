@@ -29,25 +29,12 @@
         base_url = origin;
       }
 
-      if(siteId){
-        var _paq = _paq || [];
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-          var u="//protograph.innocraft.cloud/";
-          _paq.push(['setTrackerUrl', u+'piwik.php']);
-          _paq.push(['setSiteId', siteId]);
-          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        })();
-      }
     </script>
 
   </head>
   <body style="margin:0px">
     <div id="viz_card"></div>
-    <script src="https://dwln9tzsi7g07.cloudfront.net/lib/protograph-core.min.js"></script>
+    <script src="https://cdn.protograph.pykih.com/lib/protograph-core.min.js"></script>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toManualScavengerCoverVizCard();
@@ -68,10 +55,6 @@
 
     let view_cast_id = findGetParameter('view_cast_id'),
       schema_id = findGetParameter('schema_id');
-
-    if (siteId && view_cast_id) {
-      _paq.push(['trackEvent', 'toManualScavengerCoverVizCard', 'page_view', view_cast_id]);
-    }
 
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
