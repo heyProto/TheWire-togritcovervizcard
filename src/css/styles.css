@@ -2,25 +2,6 @@
 body {
   min-width: initial !important;
 }
-.clearfix {
-  clear: both;
-}
-.protograph-card {
-  position: relative;
-  overflow: hidden;
-  letter-spacing: normal;
-  box-sizing: border-box;
-}
-
-.protograph-col16-mode{
-  height: 430px;
-  width: 1260px;
-  z-index: 1;
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 .protograph-col4-mode {
   background: transparent;
   height: 250px;
@@ -37,28 +18,19 @@ body {
   background: #a9a8a8;
 }
 
-.protograph-col16-map-area {
+.protograph-col4-map-area {
   background: lightgrey;
   height: 360px;
 }
-.protograph-col4-map-area {
-  background: lightgrey;
-  height: 160px;
-}
-
-/*.protograph-heat-color{
-  fill: red;
-}*/
-
 
 .protograph-no-value-color{
   fill: #D3D3D3;
 }
 
-.protograph-map-div{
+/*.protograph-map-div{
   width: 420px;
   display: inline-block;
-}
+}*/
 /*.region-outline{
   cursor: pointer;
   z-index: -1;
@@ -213,5 +185,7 @@ body {
 
 
 @media only screen and (max-width: 500px){
-
+  .protograph-col4-mode {
+    width: 100%;
+  }
 }

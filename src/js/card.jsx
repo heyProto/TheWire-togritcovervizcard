@@ -111,7 +111,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
 
       scores = employed_score.concat(deaths_score, convicted_score)
       return(
-        <div className="stink-cover">
+        <div className="stink-cover protograph-col16-mode">
           <div className="first-map single-map">
             <div className="content-area">
               <div className="pre-text">Total</div>
