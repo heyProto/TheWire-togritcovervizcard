@@ -107,7 +107,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
 
       let deaths_bar_width = (deaths_count * 100)/employed_count + '%',
         convicted_bar_width = (convicted_count * 100)/employed_count + '%';
-      // console.log(deaths_map_width, "deaths_map_width")
+      console.log(data, "data")
 
       scores = employed_score.concat(deaths_score, convicted_score)
       return(
