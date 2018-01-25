@@ -203,12 +203,12 @@ body {
 
 .stink-cover-4 .counter-value{
   position: absolute;
-  line-height: 21px;
-  font-size: 23px;
+  line-height: 19px;
+  font-size: 21px;
 }
 
 .stink-cover-4 .content-area .post-text {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .stink-cover-4 .cover-title {
@@ -217,12 +217,18 @@ body {
   color: white;
   font-weight: bold;
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 50px;
+  left: 10px;
   letter-spacing: 0.5px;
 }
 
 .stink-cover-4 .third-map {
   width: 80px;
   margin-right: 0px;
+}
+
+.stink-cover-4 .cover-hint-text {
+ bottom: 0px;
+ right: 0px;
+ /*width: 300px;*/
 }
