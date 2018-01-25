@@ -3,40 +3,9 @@
 body {
   min-width: initial !important;
 }
-.protograph-col4-mode {
-  background: transparent;
-  height: 250px;
-  z-index: 1;
-  width: 300px;
-  position: relative;
-  padding: 12px;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.protograph-navbar-area{
-  height: 70px;
-  background: #a9a8a8;
-}
-
-.protograph-col4-map-area {
-  background: lightgrey;
-  height: 360px;
-}
-
 .protograph-no-value-color{
   fill: #D3D3D3;
 }
-
-/*.protograph-map-div{
-  width: 420px;
-  display: inline-block;
-}*/
-/*.region-outline{
-  cursor: pointer;
-  z-index: -1;
-  fill-rule: nonzero;
-}*/
 .region-outline:hover {
   stroke: black;
   stroke-width: 1px;
@@ -56,11 +25,9 @@ body {
   font-size: 16px;
 }
 
+/*========= col16 cover css =========*/
 
-
-/*========= cover css =========*/
-
-.stink-cover{
+.stink-cover-16{
   width: 1260px;
   height: 430px;
   padding: 20px;
@@ -82,14 +49,6 @@ body {
   width: 380px;
 }
 
-.content-area{
-  width: 150px;
-  height: 260px;
-  display: inline-block;
-  float: left;
-  /*background: #fafafa;*/
-}
-
 .map-area{
   height: 260px;
   width: 230px;
@@ -98,6 +57,10 @@ body {
 }
 
 .content-area{
+  width: 150px;
+  height: 260px;
+  display: inline-block;
+  float: left;
   font-family: "cabin";
   font-weight: bold;
   color: white;
@@ -184,9 +147,82 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* Mobile mode css  (Col4) */
 
-@media only screen and (max-width: 500px){
-  .protograph-col4-mode {
-    width: 100%;
-  }
+.stink-cover-4 {
+  background: rgba(51,51,51,0.75);
+  height: 250px;
+  z-index: 1;
+  width: 300px;
+  position: relative;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.stink-cover-4 .single-map {
+  width: 80px;
+  display: inline-block;
+  float: left;
+  margin-right: 14px;
+}
+
+.stink-cover-4 .content-area {
+  font-family: "cabin";
+  font-weight: bold;
+  color: white;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  width: 80px;
+  height: 150px;
+  display: inline-block;
+  float: left;
+  padding-top: 0px;
+} 
+
+.stink-cover-4 .counter-area {
+  padding: 3px 5px;
+  width: 80px;
+  background: rgba(0,0,0,0.2);
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  height: 25px;
+}
+
+.stink-cover-4 .bar-chart {
+  background: #EE1C25;
+  height: 25px;
+  min-width: 1px !important;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 0;
+}
+
+.stink-cover-4 .counter-value{
+  position: absolute;
+  line-height: 21px;
+  font-size: 23px;
+}
+
+.stink-cover-4 .content-area .post-text {
+  font-size: 18px;
+}
+
+.stink-cover-4 .cover-title {
+  font-size: 18px;
+  font-family: "bitter";
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  letter-spacing: 0.5px;
+}
+
+.stink-cover-4 .third-map {
+  width: 80px;
+  margin-right: 0px;
 }

@@ -111,7 +111,7 @@ export default class toManualScavengerCoverVizCard extends React.Component {
 
       scores = employed_score.concat(deaths_score, convicted_score)
       return(
-        <div className="stink-cover protograph-col16-mode">
+        <div className="stink-cover-16">
           <div className="first-map single-map">
             <div className="content-area">
               <div className="pre-text">Total</div>
@@ -207,14 +207,47 @@ export default class toManualScavengerCoverVizCard extends React.Component {
         deaths_count = deaths_score.reduce((a, b) => a + b, 0),
         convicted_count = convicted_score.reduce((a, b) => a + b, 0);
 
+
+      let deaths_bar_width = (deaths_count * 100)/employed_count + '%',
+        convicted_bar_width = (convicted_count * 100)/employed_count + '%';
+
       return (
-        <div className="protograph-col4-mode">
-          <div className="protograph-navbar-area"></div>
-          <div className="protograph-col4-map-area">
-            <div className="protograph-map-title">{data.map_title.employed_map_title} - {employed_count}</div>
-            <div className="protograph-map-title">{data.map_title.deaths_map_title} - {deaths_count}</div>
-            <div className="protograph-map-title">{data.map_title.convicted_map_title} - {convicted_count}</div>
+        <div className="stink-cover-4">
+          <div className="first-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Total</div>
+              <div className="counter-area">
+                <div className="bar-chart"></div>
+                <div className="counter-value">{employed_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.employed_map_title}</div>
+            </div>
           </div>
+
+          <div className="second-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Of which</div>
+              <div className="counter-area">
+                <div className="bar-chart" style={{width:deaths_bar_width}}></div>
+                <div className="counter-value">{deaths_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.deaths_map_title}</div>
+            </div>
+          </div>
+
+          <div className="third-map single-map">
+            <div className="content-area">
+              <div className="pre-text">Of which</div>
+              <div className="counter-area">
+                <div className="bar-chart" style={{width:convicted_bar_width}}></div>
+                <div className="counter-value">{convicted_count}</div>
+              </div>
+              <div className="post-text">{data.map_title.convicted_map_title}</div>
+            </div>
+          </div>
+
+          <div className="cover-title">{data.title_and_hint.title}</div>
+          <div className="cover-hint-text">{data.title_and_hint.hint}</div>
         </div>
       )
     }
