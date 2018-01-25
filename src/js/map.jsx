@@ -68,9 +68,9 @@ class MapsCard extends React.Component {
     // console.log(grouped_data, "grouped_data")
     this.state = {
       projection: projection,
-      // x1:'100px',
-      // y1:'100px',
-      showTooltip:false, 
+      showTooltip1: false, 
+      showTooltip2: false, 
+      showTooltip3: false, 
       regions: regions,
       outlines: outlines,
       country: country,
@@ -146,11 +146,13 @@ class MapsCard extends React.Component {
     let cont3 = document.getElementById('map_and_tooltip_container-map-3'),
       bbox3 = cont3.getBoundingClientRect();
     this.setState({
-      showTooltip: true,
-      x1: mx - bbox1.left + 15,
+      showTooltip1: true,
+      showTooltip2: true,
+      showTooltip3: true,
+      x1: 400,
       x2: mx - bbox2.left + 15,
       x3: mx - bbox3.left + 15,
-      y1: my - window.pageYOffset - bbox1.top - 5,
+      y1: 360 - window.pageYOffset - bbox1.top - 5,
       // x2: mx - bbox2.left + 15 + 180,
       y2: my - window.pageYOffset - bbox2.top - 5,
       // x3: mx - bbox3.left + 15 + (180 + 180),
@@ -170,13 +172,9 @@ class MapsCard extends React.Component {
       return e.style.strokeWidth = 0
     })
     this.setState({
-     showTooltip: false,
-      x1: 0,
-      y1: 0,
-      x2: 0,
-      y2: 0,
-      x3: 0,
-      y3: 0
+      showTooltip1: false, 
+      showTooltip2: false,
+      showTooltip3: false
     })
   }
 
@@ -192,7 +190,9 @@ class MapsCard extends React.Component {
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>
         </svg>
-        {this.state.showTooltip ? <div id="protograph_tooltip" style={{left:this.state.x1, top:this.state.y1}}> {this.state.currState} {this.state.employedScore} {this.state.deathScore} {this.state.convictedScore} </div> : ''}
+        {this.state.showTooltip1 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.employedScore}</div> : ''}
+        {this.state.showTooltip2 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.deathScore} </div> : ''}
+        {this.state.showTooltip3 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.convictedScore} </div> : ''}
       </div>
     )
   }

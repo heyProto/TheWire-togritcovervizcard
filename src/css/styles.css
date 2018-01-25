@@ -11,7 +11,7 @@ body {
   stroke-width: 1px;
   z-index: 100;
 }
-#protograph_tooltip{
+.protograph_tooltip{
   background-color:white;
   border: 1px solid #CCC;
   border-radius: 5px;
@@ -20,10 +20,14 @@ body {
   width:fit-content;
   height:fit-content;
   padding:5px 10px;
-  position:absolute;
+  position: fixed;
+  /*position:absolute;*/
   transition: all 0.35s;
   font-size: 16px;
   font-family: "cabin";
+}
+.protograph-map-container{
+  position: relative;
 }
 
 /*========= col16 cover css =========*/
