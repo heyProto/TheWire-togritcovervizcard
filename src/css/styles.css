@@ -11,20 +11,23 @@ body {
   stroke-width: 1px;
   z-index: 100;
 }
+
 .protograph_tooltip{
   background-color:white;
   border: 1px solid #CCC;
   border-radius: 5px;
   pointer-events:'none';
-  display:block;
+  display:none;
   width:fit-content;
   height:fit-content;
   padding:5px 10px;
-  position: fixed;
-  /*position:absolute;*/
+  position:absolute;
   transition: all 0.35s;
   font-size: 16px;
   font-family: "cabin";
+  left: 115px;
+  bottom: 0px;
+  max-width: 100px;
 }
 .protograph-map-container{
   position: relative;

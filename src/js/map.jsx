@@ -67,10 +67,7 @@ class MapsCard extends React.Component {
     let grouped_data = this.groupBy(this.props.allData.data.data_points, "state");
     // console.log(grouped_data, "grouped_data")
     this.state = {
-      projection: projection,
-      showTooltip1: false, 
-      showTooltip2: false, 
-      showTooltip3: false, 
+      projection: projection, 
       regions: regions,
       outlines: outlines,
       country: country,
@@ -120,6 +117,9 @@ class MapsCard extends React.Component {
   }
 
   handleMouseMove (e, d) {
+    document.querySelectorAll('.protograph_tooltip').forEach((e) => {
+      return e.style.display = 'block';
+    })
     let target = e.target;
     
     document.querySelectorAll('.region-outline:not(.protograph-no-value-color)').forEach((e) => {
@@ -135,33 +135,18 @@ class MapsCard extends React.Component {
       return e.style.stroke = "black"
     })
 
+    let currState = d.properties.NAME_1,
+      employedScore = this.state.groupedData[d.properties.NAME_1][0].employed_value,
+      deathScore = this.state.groupedData[d.properties.NAME_1][0].deaths_value,
+      convictedScore = this.state.groupedData[d.properties.NAME_1][0].convicted_value
+
+    document.getElementById('tooltip-map-1').innerHTML = currState + " - " + employedScore + " employed"
+    document.getElementById('tooltip-map-2').innerHTML = currState + " - " + deathScore + " died"
+    document.getElementById('tooltip-map-3').innerHTML = currState + " - " + convictedScore + " convicted"
+
     e.target.classList.add('region-outline-hover');
-    let rect = e.target.getBoundingClientRect();
-    let mx = e.pageX;
-    let my = e.pageY;
-    let cont1 = document.getElementById('map_and_tooltip_container-map-1'),
-      bbox1 = cont1.getBoundingClientRect();
-    let cont2 = document.getElementById('map_and_tooltip_container-map-2'),
-      bbox2 = cont2.getBoundingClientRect();
-    let cont3 = document.getElementById('map_and_tooltip_container-map-3'),
-      bbox3 = cont3.getBoundingClientRect();
-    this.setState({
-      showTooltip1: true,
-      showTooltip2: true,
-      showTooltip3: true,
-      x1: 400,
-      x2: mx - bbox2.left + 15,
-      x3: mx - bbox3.left + 15,
-      y1: 360 - window.pageYOffset - bbox1.top - 5,
-      // x2: mx - bbox2.left + 15 + 180,
-      y2: my - window.pageYOffset - bbox2.top - 5,
-      // x3: mx - bbox3.left + 15 + (180 + 180),
-      y3: my - window.pageYOffset - bbox3.top - 5,
-      currState: d.properties.NAME_1,
-      employedScore: this.state.groupedData[d.properties.NAME_1][0].employed_value,
-      deathScore: this.state.groupedData[d.properties.NAME_1][0].deaths_value,
-      convictedScore: this.state.groupedData[d.properties.NAME_1][0].convicted_value
-    });
+    let rect = e.target.getBoundingClientRect();  
+
   }
 
   handleMouseOut (e,d){
@@ -171,10 +156,8 @@ class MapsCard extends React.Component {
     document.querySelectorAll('.region-outline').forEach((e) => {
       return e.style.strokeWidth = 0
     })
-    this.setState({
-      showTooltip1: false, 
-      showTooltip2: false,
-      showTooltip3: false
+    document.querySelectorAll('.protograph_tooltip').forEach((e) => {
+      return e.style.display = 'none';
     })
   }
 
@@ -190,9 +173,7 @@ class MapsCard extends React.Component {
           <path className='geo-borders' d={path(country)}></path>
           <g className="outlines" style={styles}>{outlines}</g>
         </svg>
-        {this.state.showTooltip1 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.employedScore}</div> : ''}
-        {this.state.showTooltip2 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.deathScore} </div> : ''}
-        {this.state.showTooltip3 ? <div className="protograph_tooltip" style={{left:0, bottom:0}}> {this.state.currState} {this.state.convictedScore} </div> : ''}
+        <div id={`tooltip-${this.props.identifier}`} className="protograph_tooltip"></div>
       </div>
     )
   }
