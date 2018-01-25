@@ -84,13 +84,14 @@ class MapsCard extends React.Component {
   }
 
   drawMap() {
-    let regions = this.state.country.features.map((d,i) => {
-      return(
-        <g key={i} className="region">
-          <path className="geo-region" d={this.state.path(d)}></path>
-        </g>
-      )
-    })
+    // let regions = this.state.country.features.map((d,i) => {
+    //   return(
+    //     <g key={i} className="region">
+    //       <path className="geo-region" d={this.state.path(d)}></path>
+    //     </g>
+    //   )
+    // })
+    let grouped_data = this.groupBy(this.props.allData.data.data_points, "state");
 
     let outlines = this.state.country.features.map((d,i) => {
       let heat_color = this.props.dataJSON[d.properties.NAME_1] === 0 ? 'protograph-no-value-color' : 'protograph-heat-color',
@@ -108,8 +109,9 @@ class MapsCard extends React.Component {
       )
     })
     this.setState({
-      regions: regions,
-      outlines: outlines
+      // regions: regions,
+      outlines: outlines,
+      groupedData: grouped_data
     })    
   }
 

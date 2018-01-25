@@ -23,6 +23,7 @@ body {
   position:absolute;
   transition: all 0.35s;
   font-size: 16px;
+  font-family: "cabin";
 }
 
 /*========= col16 cover css =========*/
@@ -230,5 +231,23 @@ body {
 .stink-cover-4 .cover-hint-text {
  bottom: 0px;
  right: 0px;
+ max-width: 100%;
  /*width: 300px;*/
 }
+
+@media only screen and (max-width: 500px){
+  body {
+    margin: 0px;
+  }
+  .stink-cover-4{
+    width: 100%;
+  }
+  .stink-cover-4 .single-map{
+    width: 33%;
+    margin-right: 0px;
+  }
+  .stink-cover-4 .cover-hint-text{
+    width: 100%;
+    left: 0px;
+  }
+} 
